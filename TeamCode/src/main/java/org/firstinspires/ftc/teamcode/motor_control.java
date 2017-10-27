@@ -11,22 +11,36 @@ public class motor_control extends OpMode {
     private DcMotor motorleft;
     private DcMotor motorright;
     private DcMotor motorvertical;
+
+
+    public void verticalup(){
+        motorvertical.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorvertical.setTargetPosition(1120);
+        motorvertical.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void verticaldown(){
+        motorvertical.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorvertical.setTargetPosition(-1120);
+        motorvertical.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
     @Override
     public void init(){
         motorleft = hardwareMap.dcMotor.get("motorleft");
         motorright = hardwareMap.dcMotor.get("motorright");
         motorvertical = hardwareMap.dcMotor.get("motorvertical");
-        motorleft.setDirection(DcMotor.Direction.REVERSE);
+        motorright.setDirection(DcMotor.Direction.REVERSE);
+        motorvertical.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
     public void loop() {
         motorleft.setPower(gamepad1.left_stick_y);
         motorright.setPower(gamepad1.right_stick_y);
-        while(gamepad1.dpad_up){
-            motorvertical.setPower(1);
+        if(gamepad1.a){
+            verticalup();
         }
-        while(gamepad1.dpad_down){
-            motorvertical.setPower(-1);
+        if(gamepad1.b){
+            verticaldown();
         }
         }
     }
