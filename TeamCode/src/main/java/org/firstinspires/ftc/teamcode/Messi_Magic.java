@@ -89,8 +89,12 @@ public class Messi_Magic extends LinearOpMode {
             if (gamepad1.right_bumper){
                 servograbber.setPosition(0);
             }
-
-
+            if(gamepad2.right_bumper){
+                servoarm.setPosition(1);
+            }
+            if (gamepad2.left_bumper){
+                servoarm.setPosition(0);
+            }
 
 
             //Encoded Motors
